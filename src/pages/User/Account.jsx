@@ -1,12 +1,20 @@
-import { useContext } from "react"
-import { Link, Outlet } from "react-router-dom"
+import { useContext, useEffect, useState } from "react"
+import { Link, Outlet, useNavigate } from "react-router-dom"
 import { AuthContext } from "../../context/AuthContext"
 
 const Account = () => {
     const { user } = useContext(AuthContext)
+    const [greeting, setGreeting] = useState('Dav')
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        !user ? navigate("/") : setGreeting(`Welcome back, ${user.email}!`)
+    }, [])
 
     return (
-        <h1>{`Welcome back, ${user.email}!`}</h1>
+        <h1>
+            {greeting}
+        </h1>
     )
 }
 
