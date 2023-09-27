@@ -1,4 +1,7 @@
+import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { set } from 'firebase/database';
 
 // const auth = getAuth();
 // createUserWithEmailAndPassword(auth, email, password)
@@ -13,8 +16,7 @@ import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 //     // ..
 //   });
 
-import { useEffect, useState } from 'react'
-import { auth } from '../../firebaseSetup'
+// import { auth } from '../../firebaseSetup'
 
 const CreateAccount = () => {
     const [newUser, setNewUser] = useState({
@@ -23,6 +25,10 @@ const CreateAccount = () => {
         repeatedPassword: ''
     })
     const [doesPasswordMatch, setDoesPasswordMatch] = useState(false)
+    const [newUserId, setNewUserId] = useState('')
+    const auth = getAuth()
+    // console.log(newUserId)
+    const navigate = useNavigate()
 
     useEffect(() => {
         newUser.password === newUser.repeatedPassword ? setDoesPasswordMatch(true) : setDoesPasswordMatch(false)
@@ -39,10 +45,11 @@ const CreateAccount = () => {
         e.preventDefault()
         doesPasswordMatch ? createUserWithEmailAndPassword(auth, newUser.email, newUser.password)
             .then(userCredential => {
-                console.log(userCredential)
+                setNewUserId(userCredential.user.uid)
             }).catch(error => {
                 console.log(error)
             }) : console.log('Passwords do not match')
+        navigate("/account")
     }
 
     return (

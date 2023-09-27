@@ -1,14 +1,19 @@
-import { useState } from "react"
+import { useState, useRef, useContext } from "react"
 import { Link } from "react-router-dom"
 import { ref, set } from 'firebase/database'
 import { database } from "../../firebaseSetup"
+import { AuthContext } from "../../context/AuthContext"
 
 const NewList = () => {
+    const { user } = useContext(AuthContext)
+    console.log(user.uid)
+
     const [title, setTitle] = useState('')
     const [item, setItem] = useState('')
     const [isTitle, setIsTitle] = useState(false)
     const [isListItem, setIsListItem] = useState(false)
     const [listData, setListData] = useState([])
+    const ref = useRef(null)
 
     const handleTitleChange = e => {
         setTitle(e.target.value)
@@ -17,6 +22,7 @@ const NewList = () => {
     const createNewList = e => {
         e.preventDefault()
         setIsTitle(true)
+        ref.current.focus()
     }
 
     const handleItemChange = e => {
@@ -28,6 +34,7 @@ const NewList = () => {
         setIsListItem(true)
         setListData(prevData => [...prevData, item])
         setItem('')
+        ref.current.focus()
     }
 
     return (
@@ -54,12 +61,17 @@ const NewList = () => {
                         placeholder="Enter a task"
                         value={item}
                         onChange={e => handleItemChange(e)}
+                        ref={ref}
                     />
                     <button>Add item</button>
                 </form>
             }
-            {isListItem && 
-                listData.map(item => <p key={item}>{item}</p>)
+            {isListItem &&
+                listData.map(item => (
+                    <div key={item}>
+                        <p>{item}</p>
+                    </div>
+                ))
             }
         </>
     )

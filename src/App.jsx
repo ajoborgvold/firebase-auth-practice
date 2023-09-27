@@ -14,6 +14,7 @@ import ToDoList from './pages/ToDoList'
 import NewList from './pages/User/NewList'
 import OldLists from './pages/User/OldLists'
 import CurrentList from './pages/User/CurrentList'
+import Account from './pages/User/Account'
 // import loader from './utils/loader'
 
 import { AuthContext } from './context/AuthContext'
@@ -39,6 +40,10 @@ function App() {
         {
           path: "/createAccount",
           element: <CreateAccount />
+        },
+        {
+          path: "/account",
+          element: <Account />
         },
         {
           path: "/toDoList",
