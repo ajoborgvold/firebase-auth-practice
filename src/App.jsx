@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { useState, useContext } from 'react'
+import { createBrowserRouter, RouterProvider, redirect } from 'react-router-dom'
 
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
@@ -11,8 +11,14 @@ import CreateAccount from './components/auth/CreateAccount'
 import SignIn from './components/auth/SignIn'
 import AuthDetails from './components/auth/AuthDetails'
 import ToDoList from './pages/ToDoList'
+// import { loader as toDoLoader } from './utils/loader'
+
+import { AuthContext } from './context/AuthContext'
+
 
 function App() {
+  const { user } = useContext(AuthContext)
+
   const router = createBrowserRouter([
     {
       path: "/",
@@ -32,7 +38,13 @@ function App() {
         },
         {
           path: "/toDoList",
-          element: <ToDoList />
+          element: <ToDoList />,
+          loader: async () => {
+            if (!user) {
+              throw redirect("/signIn")
+            }
+            return null
+          }
         },
       ]
     }
@@ -40,7 +52,7 @@ function App() {
 
 
   return (
-    <RouterProvider router={router} />
+      <RouterProvider router={router} />
   )
 }
 
