@@ -1,12 +1,10 @@
 import { redirect } from "react-router-dom";
 
-const loader = async () => {
-    const isLoggedIn = true
-
-    if (!isLoggedIn) {
-        redirect("/signIn")
+async function loader() {
+    if (!user) {
+        throw redirect("/signIn")
     }
     return null
 }
 
-export { loader }
+export default loader

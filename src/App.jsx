@@ -11,10 +11,14 @@ import CreateAccount from './components/auth/CreateAccount'
 import SignIn from './components/auth/SignIn'
 import AuthDetails from './components/auth/AuthDetails'
 import ToDoList from './pages/ToDoList'
-// import { loader as toDoLoader } from './utils/loader'
+import NewList from './pages/User/NewList'
+import OldLists from './pages/User/OldLists'
+import CurrentList from './pages/User/CurrentList'
+// import loader from './utils/loader'
 
 import { AuthContext } from './context/AuthContext'
 
+// console.log(loader)
 
 function App() {
   const { user } = useContext(AuthContext)
@@ -44,7 +48,21 @@ function App() {
               throw redirect("/signIn")
             }
             return null
-          }
+          },
+          children: [
+            {
+              path: "currentList",
+              element: <CurrentList />
+            },
+            {
+              path: "newList",
+              element: <NewList /> 
+            },
+            {
+              path: "oldLists",
+              element: <OldLists />
+            }
+          ]
         },
       ]
     }

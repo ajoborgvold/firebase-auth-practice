@@ -1,6 +1,14 @@
+import { Link, Outlet } from "react-router-dom"
+import { ref, set } from 'firebase/database'
+import { database } from "../firebaseSetup"
+import NavBar from "./User/NavBar"
+
 const ToDoList = () => {
     return (
-        <h1>New to-do list goes here</h1>
+        <div>
+            <NavBar />
+            <Outlet />
+        </div>
     )
 }
 
