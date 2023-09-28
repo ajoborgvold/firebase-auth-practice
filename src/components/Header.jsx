@@ -13,8 +13,6 @@ const Header = () => {
     return (
         <header>
             <nav>
-                <NavLink to="/">Home</NavLink>
-                <NavLink to="/signIn">Sign in</NavLink>
                 <button onClick={signUserOut}>Sign out</button>
             </nav>
         </header>

@@ -15,11 +15,10 @@ import NewList from './pages/User/NewList'
 import OldLists from './pages/User/OldLists'
 import CurrentList from './pages/User/CurrentList'
 import Account from './pages/User/Account'
-// import loader from './utils/loader'
+import GetStarted from './pages/GetStarted'
 
 import { AuthContext } from './context/AuthContext'
 
-// console.log(loader)
 
 function App() {
   const { user } = useContext(AuthContext)
@@ -34,20 +33,20 @@ function App() {
           element: <Home />
         },
         {
-          path: "/signIn",
-          element: <SignIn />
+          path: "/getStarted",
+          element: <GetStarted />
         },
         {
           path: "/createAccount",
           element: <CreateAccount />
         },
         {
-          path: "/account",
-          element: <Account />
+          path: "/signIn",
+          element: <SignIn />
         },
         {
-          path: "/toDoList",
-          element: <ToDoList />,
+          path: "/account",
+          element: <Account />,
           loader: async () => {
             if (!user) {
               throw redirect("/signIn")

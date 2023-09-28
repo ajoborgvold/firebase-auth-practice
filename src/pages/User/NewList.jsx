@@ -1,5 +1,4 @@
 import { useState, useRef, useContext } from "react"
-import { Link } from "react-router-dom"
 import { ref, set } from 'firebase/database'
 import { database } from "../../firebaseSetup"
 import { AuthContext } from "../../context/AuthContext"
@@ -39,7 +38,6 @@ const NewList = () => {
 
     return (
         <>
-            <Link to="..">Back to dashboard</Link>
             <h1>{isTitle ? title : 'New list'}</h1>
             {!isTitle ?
                 <form onSubmit={e => createNewList(e)}>
